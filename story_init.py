@@ -38,7 +38,7 @@ def save_schema(plot, suspects, save_path):
 
         f.write("Suspects:\n")
         for suspect in suspects:
-            f.write(f"Name: {suspect.name}\n")
+            f.write(f"\nName: {suspect.name}\n")
             f.write(f"\tBio: {suspect.bio}\n")
             f.write(f"\tTags: {suspect.tags}\n")
             f.write(f"\tVictim connection: {suspect.victim_connection}\n")

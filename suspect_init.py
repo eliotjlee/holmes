@@ -27,7 +27,7 @@ chain = LLMChain(
     prompt=prompt,
 )
 
-info_template = """Here are some details about you:
+info_template = """Here is some background information about the case:
 {character_description}
 
 Here is the part of the event you are currently living out again in your dream:
@@ -35,6 +35,9 @@ Here is the part of the event you are currently living out again in your dream:
 
 def get_narrative_header(suspects, suspect_id):
     # Get the desired suspect
+    print(suspects)
+    print(f"ID: {suspect_id}")
+
     suspect = suspects[suspect_id-1]
 
     # Create an empty string
@@ -72,7 +75,7 @@ def write_suspect_account(plot, suspects, timeline, suspect_id, save_path):
             info = info_template.format(character_description=suspect_context, event=time_and_action)
 
             entry = chain(info)
-            f.write(f"TIME: {timestamp.time}\n")
+            f.write(f"\n\nTIME: {timestamp.time}\n")
             f.write(entry['text'])
 
     

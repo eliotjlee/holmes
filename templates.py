@@ -134,5 +134,5 @@ You are having a dream - in this dream, you are reliving this event step-by-step
 
 {info}
 
-YOUR VERY CHATTY INNER MONOLOGUE ON THIS PART OF THE EVENT (2 PARAGRAPHS):
+YOUR VERY CHATTY INNER MONOLOGUE ON THIS PART OF THE EVENT (~500 WORDS):
 """
