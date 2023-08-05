@@ -51,8 +51,9 @@ def save_timeline(timeline, save_path):
         f.write("TIMELINE:\n")
         for timestamp in timeline.timestamps:
             f.write(f"\nTime: {timestamp.time}")
-            for action in timestamp.suspect_actions:
-                f.write(f"\t{action}\n")
+            for i in range(len(timestamp.suspect_actions)):
+                suspect_key = f"suspect_{i+1}"
+                f.write(f"\n\t{timestamp.suspect_actions[suspect_key]}\n")
             
 
 

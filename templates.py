@@ -62,7 +62,7 @@ YOU ARE PROGRAMMED TO FOLLOW THESE GUIDELINES EXACTLY:
 4. Your sequence of events should be both logical and intricately woven -- characters should interact, act on their motives
 5a. The plot summary will inform you of whuch suspect is the murderer - you must explicitly detail how this suspect carried out the murder. If you don't do this, the game will be unplayable.
 5b. The murder MUST coincide with one of the timestamps in the function -- as the guilty suspect's action, you MUST detail how they kill the victim. 
-    - (Ex: "Sally Smith hits Mayor Schwartz over the head with a bottle, killing him.")
+    - Ex: "Sally Smith hits Mayor Schwartz over the head with a bottle, killing him."
     - As in the above example, YOU MUST EXPLICITY state that the murderous action resulted in the death of the victim.
 6. YOU MUST FOLLOW ALL INSTRUCTIONS GIVEN TO YOU HERE AND IN THE FUNCTION INFO EXACTLY.
 7. RETURN ALL TIMESTAMPS IN ORDER (1, 2, 3, [...], 10)
@@ -130,9 +130,16 @@ YOUR DETAILED FIRST PERSON PERSPECTIVE OF THIS EVENT (2 DETAILED PARAGRAPHS):
 new_perspective = """
 You are a suspect in a murder case. The murder happened at an event you attended recently.
 
-You are having a dream - in this dream, you are reliving this event step-by-step. You remember it vivid and clearly, and your inner monologue that conveys what you see, feel, perceive is talking nonstop.
+You are having a dream - in this dream, you are reliving this event step-by-step, experiencing things EXACTLY how they happened. You are reliving it so vividly that you do not even know it is a dream.
+
+You have a very chatty and descriptive and perceptive internal monologue that describes everything you see, feel, perceive.
 
 {info}
 
-YOUR VERY CHATTY INNER MONOLOGUE ON THIS PART OF THE EVENT (~500 WORDS):
+YOUR VERY CHATTY INNER MONOLOGUE ON THIS PART OF THE EVENT AS YOU ARE LIVING IT(~500 WORDS):
 """
+
+# ^^ NEED TO MAINTAIN CONSISTENCY B/W SUSPECTS - MAYBE THEY SHOULDN'T INTERACT??? OR HAVE AGENT WRITE ALL FOUR TIMESTAMPS AT ONCE
+# Or have an agent author that uses tools???
+# NEW IDEA!!!! Have one agent construct the story using tools and steps (first plot, then timeline, then suspect accounts)
+# Or use built-up vector store to ensure consistency

@@ -28,6 +28,7 @@ def assemble_suspect_context(plot, suspects, suspect_number):
     context_str += f"Victim Connection: {this_suspect.victim_connection}\n"
     if this_suspect.guilty:
         context_str += "You are guilty.\n"
+        context_str += "Your responses MUST detail how you plotted and carried out the murder"
     else:
         context_str += "You are innocent.\n"
 
