@@ -1,7 +1,8 @@
+# break up the story even more to create a more formulaic structure -> make it specify murder weapon, victim background, event background, each of the suspect's relations to the vicitm
 set_up_story_func = [
     {
         "name": "set_up_story",
-        "description": "Set up the story by providing a plot summary and descriptions for the four suspects.",
+        "description": "Set up the game's story by providing a plot summary and descriptions for the four suspects.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -43,13 +44,13 @@ set_up_story_func = [
                                 },
                                 "murder_action": {
                                     "type": "string",
-                                    "description": "A succinct sentence in this EXACT grammatical format: [MURDERER'S NAME] did [ACTION INVOLVING MURDER WEAPON], resulting in [VICTIM_NAME]'s death. (The murderer's first + last name must begin the sentence. This is how you always do it.)"
+                                    "description": "A succinct sentence in this format: [MURDERER'S NAME] did [ACTION INVOLVING MURDER WEAPON], resulting in [VICTIM_NAME]'s death"
                                 }
                             },
-                            "required": ["murder_description", "murder_setting", "murder_weapon", "murder_action"]
+                            "required": ["murder_description", "murder_setting", "murder_time", "murder_weapon", "murder_action"]
                         }
                     },
-                    "required": ["summary", "victim", "murder_details"]
+                    "required": ["setting", "victim", "murder_details"]
                 },
                 "suspect_1": {
                     "type": "object",
@@ -87,9 +88,10 @@ set_up_story_func = [
                             "description": "A description of suspect #1's connection to the victim. How do they know each other?"
                         },
                         "guilty": {
-                            "type": "boolean",
-                            "description": "Whether or not suspect #1 is guilty."
-                        }},
+                            "type": "string",
+                            "description": "Whether or not suspect #1 is guilty. (MUST BE ONE OF: 'True', 'False')."
+                        },
+                    },
                     "required": ["name", "bio", "tag_1", "tag_2", "tag_3", "tag_4", "tag_5", "victim_connection", "guilty"]
                 },
                 "suspect_2": {
@@ -128,9 +130,10 @@ set_up_story_func = [
                             "description": "A description of suspect #2's connection to the victim. How do they know each other?"
                         },
                         "guilty": {
-                            "type": "boolean",
-                            "description": "Whether or not suspect #2 is guilty."
-                        }},
+                            "type": "string",
+                            "description": "Whether or not suspect #2 is guilty. (MUST BE ONE OF: 'True', 'False')."
+                        },
+                    },
                     "required": ["name", "bio", "tag_1", "tag_2", "tag_3", "tag_4", "tag_5", "victim_connection", "guilty"]
                 },
                 "suspect_3": {
@@ -169,9 +172,10 @@ set_up_story_func = [
                             "description": "A description of suspect #3's connection to the victim. How do they know each other?"
                         },
                         "guilty": {
-                            "type": "boolean",
-                            "description": "Whether or not suspect #3 is guilty."
-                        }},
+                            "type": "string",
+                            "description": "Whether or not suspect #3 is guilty. (MUST BE ONE OF: 'True', 'False')."
+                        },
+                    },
                     "required": ["name", "bio", "tag_1", "tag_2", "tag_3", "tag_4", "tag_5", "victim_connection", "guilty"]
                 },
                 "suspect_4": {
@@ -210,13 +214,14 @@ set_up_story_func = [
                             "description": "A description of suspect #4's connection to the victim. How do they know each other?"
                         },
                         "guilty": {
-                            "type": "boolean",
-                            "description": "Whether or not suspect #4 is guilty."
-                        }},
+                            "type": "string",
+                            "description": "Whether or not suspect #4 is guilty. (MUST BE ONE OF: 'True', 'False')."
+                        },
+                    },
                     "required": ["name", "bio", "tag_1", "tag_2", "tag_3", "tag_4", "tag_5", "victim_connection", "guilty"]
-                }
+                },
             },
-            "required": ["plot_details", "suspect_1", "suspect_2", "suspect_3", "suspect_4"]
+            "required": ["plot_details", "suspect_1", "suspect_2", "suspect_3", "suspect_4"],
         }
     }
 ]

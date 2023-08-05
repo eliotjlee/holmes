@@ -1,0 +1,53 @@
+TIME OF MURDER: 7:30 PM
+
+TIMELINE:
+
+Time: 5:00 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 5:15 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 5:30 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 5:45 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 6:00 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 6:15 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 6:30 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 6:45 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 7:00 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
+
+Time: 7:15 PM	suspect_1
+	suspect_2
+	suspect_3
+	suspect_4
