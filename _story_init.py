@@ -3,9 +3,7 @@ import os
 from LLM_functions.set_up_story import set_up_story_func
 from LLM_functions.write_timeline import write_timeline_func
 from LLM_functions.shared_events import shared_events_func
-from shared_convo_gen import write_shared_interaction_prompts
 from old.write_accounts import create_suspect_prompt, create_suspect_prompt_dict, generate_suspect_prompt
-from parse_shared_events import parse_shared_interactions
 from suspect_init import write_suspect_account
 from make_save import make_save
 from prompt_templates.story_init import author_template
@@ -63,7 +61,8 @@ def save_timeline(timeline, save_path):
 
 def save_shared_events(shared_events, save_path):
     with open(f"{save_path}/shared_events.txt", "w") as f:
-        json.dump(shared_events, f, indent=4)
+        f.write(str(shared_events))
+
 
 
 def initialize_story(save_path):
@@ -80,7 +79,7 @@ def initialize_story(save_path):
 
     print(story_schema)
 
-    plot, suspects, suspects_dict = parse_story(fix_trailing_commas(story_schema))
+    plot, suspects = parse_story(fix_trailing_commas(story_schema))
 
     save_schema(plot, suspects, save_path)
 
@@ -94,37 +93,29 @@ def initialize_story(save_path):
 
     shared_events = story_shared_events.get('choices', [{}])[0].get('message', {}).get('function_call', {}).get('arguments')
 
-    shared_interactions = parse_shared_interactions(fix_trailing_commas(shared_events))
-    shared_interaction_prompts = write_shared_interaction_prompts(shared_interactions, plot, suspects_dict)
-
     print(shared_events)
 
     save_shared_events(fix_trailing_commas(shared_events), save_path)
 
-    while True:
-        # using story schema :+ pre-determined shared interactions, red herrings, etc, generate the timeline
-        story_timeline = openai.ChatCompletion.create(
-            model = 'gpt-3.5-turbo-16k-0613',
-            messages = [{'role': 'system', 'content': write_timeline_template.format(story_schema=story_schema, shared_events=shared_events)}],
-            functions = write_timeline_func,
-            function_call = {'name': 'write_timeline'},
-        )
+    # using story schema :+ pre-determined shared interactions, red herrings, etc, generate the timeline
+    story_timeline = openai.ChatCompletion.create(
+        model = 'gpt-3.5-turbo-16k-0613',
+        messages = [{'role': 'system', 'content': write_timeline_template.format(story_schema=story_schema, shared_events=shared_events)}],
+        functions = write_timeline_func,
+        function_call = {'name': 'write_timeline'},
+    )
 
 
-        print(story_timeline)
+    print(story_timeline)
 
-        story_timeline_args = story_timeline.get('choices', [{}])[0].get('message', {}).get('function_call', {}).get('arguments')
+    story_timeline_args = story_timeline.get('choices', [{}])[0].get('message', {}).get('function_call', {}).get('arguments')
 
-        timeline, output_valid = parse_timeline(fix_trailing_commas(story_timeline_args))
-
-        if output_valid:
-            break
+    timeline = parse_timeline(fix_trailing_commas(story_timeline_args))
 
     save_timeline(timeline, save_path)
 
     threads = []
     for i in range(4):
-        print(f"Creating thread for suspect {i+1}")
         t = threading.Thread(target=write_suspect_account, args=(plot, suspects, timeline, i+1, save_path))
         threads.append(t)
         t.start()

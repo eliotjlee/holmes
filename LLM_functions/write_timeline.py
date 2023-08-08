@@ -274,7 +274,8 @@ write_timeline_func = [
                     "required": ["time", "suspect_1", "suspect_2", "suspect_3", "suspect_4"]
                 },
 
-            }
+            },
+            "required" : ["timestamp_1", "timestamp_2", "timestamp_3", "timestamp_4", "timestamp_5", "timestamp_6", "timestamp_7", "timestamp_8", "timestamp_9", "timestamp_10"]
 
         }
 

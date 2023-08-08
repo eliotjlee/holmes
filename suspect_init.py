@@ -2,7 +2,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationChain, LLMChain
 from langchain.prompts import PromptTemplate
-from templates import generate_perspective_template, new_perspective
+from prompt_templates.generate_perspective import generate_perspective_template
 from assemble_suspect_context import assemble_suspect_context
 import openai
 import os
@@ -17,13 +17,13 @@ llm = ChatOpenAI(
     model="gpt-3.5-turbo-16k-0613",
 )
 
-prompt = PromptTemplate.from_template(new_perspective)
+prompt = PromptTemplate.from_template(generate_perspective_template)
 
 # Create a chain object
 chain = LLMChain(
     llm=llm,
     memory=memory,
-    verbose=True,
+    verbose=False,
     prompt=prompt,
 )
 

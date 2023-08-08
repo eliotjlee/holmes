@@ -6,3 +6,11 @@ class Plot:
         self.summary = summary
         self.victim = victim
         self.murder_details = murder_details
+
+    def get_info(self):
+        info = f"Case Summary: {self.summary}\n"
+        info += f"Victim: {self.victim.name}\nBio: {self.victim.bio}\n"
+        info += f"Murder Details: {self.murder_details.murder_description}\n"
+        info += f"Murder Setting: {self.murder_details.murder_setting}\n"
+        info += f"Murder Weapon: {self.murder_details.murder_weapon}\n"
+        return info

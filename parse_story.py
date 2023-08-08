@@ -11,9 +11,11 @@ def parse_story(story_dict):
     plot_obj = Plot(plot.get("summary"), victim, murder_details)
     
     suspects = []
+    suspects_dict = {}
     for i in range(1, 5):
         suspect = story_dict.get(f"suspect_{i}")
         tags = [suspect.get(f"tag_{j}") for j in range(1, 6)]
         suspects.append(Suspect(suspect.get("name"), suspect.get("bio"), tags, suspect.get("victim_connection"), suspect.get("guilty"), i))
+        suspects_dict[suspect.get("name")] = suspect
         
-    return plot_obj, suspects
+    return plot_obj, suspects, suspects_dict
