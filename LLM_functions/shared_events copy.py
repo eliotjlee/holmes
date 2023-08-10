@@ -38,7 +38,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -77,7 +84,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -116,7 +130,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -155,7 +176,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -194,7 +222,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -233,7 +268,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -272,7 +314,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -311,7 +360,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -350,7 +406,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"
@@ -389,7 +452,14 @@ shared_events_func = [
                 "interaction_id"
               ]
             },
-
+            "red_herring": {
+              "type": "string",
+              "description": "Description of the misleading event or clue at this timestamp."
+            },
+            "distraction": {
+              "type": "string",
+              "description": "Description of an unrelated event or subplot that adds depth to the narrative."
+            }
           },
           "required": [
             "time"

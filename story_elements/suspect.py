@@ -6,6 +6,7 @@ class Suspect:
         self.victim_connection = victim_connection
         self.guilty = guilty
         self.id = id
+        self.memory_path = ""
 
     def get_info(self):
         info = f"Name: {self.name}\n"
@@ -13,4 +14,11 @@ class Suspect:
         info += f"Tags: {self.tags}\n"
         info += f"Victim connection: {self.victim_connection}\n"
         info += f"Guilty: {self.guilty}\n"
+        return info
+    
+    def get_info_no_guilty(self):
+        info = f"Name: {self.name}\n"
+        info += f"Bio: {self.bio}\n"
+        info += f"Tags: {self.tags}\n"
+        info += f"Victim connection: {self.victim_connection}\n"
         return info

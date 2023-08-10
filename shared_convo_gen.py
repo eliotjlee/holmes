@@ -4,56 +4,53 @@ import threading
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def generate_shared_convos(prompts_dict):
+def simulate_convo(interaction, prompt):
+    simulated_convo = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo-16k-0613',
+        messages=[{'role': 'system', 'content': prompt}],
+    )
+    print(simulated_convo.choices[0].message['content'])
+    interaction.set_text(simulated_convo.choices[0].message['content'])
 
-    shared_convo_dict = {}
-        
-    def simulate_convo(interaction, prompt):
-        story_skeleton = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo-16k-0613',
-            messages=[{'role': 'system', 'content': prompt}],
-        )
-        shared_convo_dict[interaction] = story_skeleton.get('choices', [{}])[0].get('text', {})
+def generate_convo(interaction, suspect_a, suspect_b, suspect_a_action, suspect_b_action, plot):
+    prompt = (f"Timestamp: {interaction.time}. Context: A murder has taken place. Details: \n{plot.get_info}. "
+            f"Suspect {suspect_a.name} details: \n\n{suspect_a.get_info()}. "
+            f"Suspect {suspect_b.name} details: \n\n{suspect_b.get_info()}. "
+            f"Simulate a conversation between "
+            f"{suspect_a.name} and {suspect_b.name}.\n\n"
+            f"This is what the two are doing at the time. Base the convo off of this:\n\n"
+            f"{suspect_a_action}\n\n"
+            f"{suspect_b_action}\n"
+            )
+    
+    simulate_convo(interaction, prompt)
+
+def generate_shared_interactions(plot):
+    # Framework that will allow reference during account generation time
+    timeline = plot.timeline
+    shared_interactions_timeline = plot.shared_interactions
+    name_to_action_dicts = plot.get_suspect_name_to_action()
+    name_to_suspect_dict = plot.get_name_to_suspect_dict()
 
     threads = []
-    for interaction, prompt in prompts_dict:
-        thread = threading.Thread(target=simulate_convo, args=(interaction, prompt))
-        threads.append(thread)
-        thread.start()
 
-    for thread in threads:
-        thread.join()
+    for i, timestamp in enumerate(timeline):
+        interaction = shared_interactions_timeline[i]
+        if interaction.interaction_id is not None:
+            suspect_a_name = interaction.suspect_a
+            suspect_b_name = interaction.suspect_b
 
-    return shared_convo_dict
+            suspect_a = name_to_suspect_dict[suspect_a_name]
+            suspect_b = name_to_suspect_dict[suspect_b_name]
 
+            suspect_a_action = name_to_action_dicts[i][suspect_a_name]
+            suspect_b_action = name_to_action_dicts[i][suspect_b_name]
 
+            # Start a new thread to generate the conversation
+            t = threading.Thread(target=generate_convo, args=(interaction, suspect_a, suspect_b, suspect_a_action, suspect_b_action, plot))
+            threads.append(t)
+            t.start()
 
-def get_prompts(shared_interactions, plot, suspects_dict):
-    """
-    Generate prompts for the LLM based on the shared interactions.
-
-    :param shared_interactions: List of SharedInteraction objects
-    :param plot_info: Information about the murder/plot
-    :param suspect_info: Dictionary with suspect names as keys and details as values
-    :return: Dictionary with SharedInteraction string as keys and prompts as values
-    """
-    prompts_dict = {}
-    
-    for interaction in shared_interactions:
-        suspect_a = suspects_dict[interaction.suspect_a]
-        suspect_b = suspects_dict[interaction.suspect_b]
-
-        prompt = (f"Timestamp: {interaction.timestamp}. Context: A murder has taken place. Details: \n{plot.get_info}. "
-                  f"Suspect {interaction.suspect_a} details: \n\n{suspect_a.get_info()}. "
-                  f"Suspect {interaction.suspect_b} details: \n\n{suspect_b.get_info()}. "
-                  f"Using the interaction ID '{interaction.interaction_id}', simulate a conversation between "
-                  f"{interaction.suspect_a} and {interaction.suspect_b}.")
-        
-        prompts_dict[str(interaction)] = prompt
-    
-    return prompts_dict
-
-def write_shared_interaction_prompts(shared_interactions, plot, suspects_dict):
-    prompts_dict = get_prompts(shared_interactions, plot, suspects_dict)
-    generated_convos_dict = generate_shared_convos(prompts_dict)
-    return generated_convos_dict
+    # Wait for all threads to complete
+    for t in threads:
+        t.join()

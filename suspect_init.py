@@ -33,12 +33,11 @@ info_template = """Here is some background information about the case:
 Here is the part of the event you are currently living out again in your dream:
 {event}"""
 
-def get_narrative_header(suspects, suspect_id):
-    # Get the desired suspect
-    print(suspects)
-    print(f"ID: {suspect_id}")
+def get_narrative_header(plot, suspect_id):
 
-    suspect = suspects[suspect_id-1]
+    print(f"ID: {suspect_id+1}")
+
+    suspect = plot.suspects[suspect_id]
 
     # Create an empty string
     output_str = ""
@@ -56,22 +55,36 @@ def get_narrative_header(suspects, suspect_id):
 
 
 
-def write_suspect_account(plot, suspects, timeline, suspect_id, save_path):
+def write_suspect_account(
+        plot, 
+        suspect_id, 
+        accounts_path): #suspect id just equals i (0-3; 1-4)
     # Create 'accounts' folder if it does not exist
-    accounts_path = os.path.join(save_path, "accounts")
-    if not os.path.exists(accounts_path):
-        os.mkdir(accounts_path)
+
+    suspect_account_path = f"{accounts_path}/suspect_{suspect_id + 1}"
+
 
     # Write a suspect account
-    with open(f"{accounts_path}/suspect_{suspect_id}", "w") as f:
-        suspect_context = assemble_suspect_context(plot, suspects, suspect_id)
-        header = get_narrative_header(suspects, suspect_id)
+    with open(suspect_account_path, "w") as f:
+        suspect_context = assemble_suspect_context(plot, suspect_id)
+
+        header = get_narrative_header(plot, suspect_id)
         f.write(header)
+
         f.write("\nTIMELINE:\n\n")
-        for timestamp in timeline.timestamps:
-            action = timestamp.suspect_actions[f"suspect_{suspect_id}"]
+        for i, timestamp in enumerate(plot.timeline):
+            action = timestamp.suspect_actions[suspect_id]
             time_and_action = f"At {timestamp.time}, {action}"
             
+            suspect = plot.suspects[suspect_id]
+            suspect.memory_path = suspect_account_path
+
+            shared_interaction = plot.shared_interactions[i]
+            if shared_interaction.interaction_content != None:
+                if suspect.name == shared_interaction.suspect_a or suspect.name == shared_interaction.suspect_b:
+                    time_and_action += f"This is how the interaction went:"
+                    time_and_action += f"\n\n{shared_interaction.interaction_content}"
+
             info = info_template.format(character_description=suspect_context, event=time_and_action)
 
             entry = chain(info)

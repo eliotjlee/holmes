@@ -1,18 +1,13 @@
-def assemble_suspect_context(plot, suspects, suspect_number):
+def assemble_suspect_context(plot, suspect_number): #suspect number one less than id
     context_str = f"Case Summary: {plot.summary}\n"
     context_str += f"Victim: {plot.victim.name}\nBio: {plot.victim.bio}\n"
     context_str += f"Murder Details: {plot.murder_details.murder_description}\n"
     context_str += f"Murder Setting: {plot.murder_details.murder_setting}\n"
     context_str += f"Murder Weapon: {plot.murder_details.murder_weapon}\n"
 
-    for i in range(len(suspects)):
-        sus = suspects[i]
-        if sus.id == suspect_number:
-            index = i
-            break
-    
-    if index is not None:
-        this_suspect = suspects[index]
+    suspects = plot.suspects
+
+    this_suspect = suspects[suspect_number]
 
     other_suspects = ""
 

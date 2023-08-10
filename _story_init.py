@@ -3,6 +3,7 @@ import os
 from LLM_functions.set_up_story import set_up_story_func
 from LLM_functions.write_timeline import write_timeline_func
 from LLM_functions.shared_events import shared_events_func
+from write_timeline import write_timeline
 from old.write_accounts import create_suspect_prompt, create_suspect_prompt_dict, generate_suspect_prompt
 from suspect_init import write_suspect_account
 from make_save import make_save
@@ -97,28 +98,32 @@ def initialize_story(save_path):
 
     save_shared_events(fix_trailing_commas(shared_events), save_path)
 
-    # using story schema :+ pre-determined shared interactions, red herrings, etc, generate the timeline
-    story_timeline = openai.ChatCompletion.create(
-        model = 'gpt-3.5-turbo-16k-0613',
-        messages = [{'role': 'system', 'content': write_timeline_template.format(story_schema=story_schema, shared_events=shared_events)}],
-        functions = write_timeline_func,
-        function_call = {'name': 'write_timeline'},
-    )
+    write_timeline(plot, suspects, shared_events, save_path)
 
 
-    print(story_timeline)
 
-    story_timeline_args = story_timeline.get('choices', [{}])[0].get('message', {}).get('function_call', {}).get('arguments')
+    # # using story schema :+ pre-determined shared interactions, red herrings, etc, generate the timeline
+    # story_timeline = openai.ChatCompletion.create(
+    #     model = 'gpt-3.5-turbo-16k-0613',
+    #     messages = [{'role': 'system', 'content': write_timeline_template.format(story_schema=story_schema, shared_events=shared_events)}],
+    #     functions = write_timeline_func,
+    #     function_call = {'name': 'write_timeline'},
+    # )
 
-    timeline = parse_timeline(fix_trailing_commas(story_timeline_args))
 
-    save_timeline(timeline, save_path)
+    # print(story_timeline)
 
-    threads = []
-    for i in range(4):
-        t = threading.Thread(target=write_suspect_account, args=(plot, suspects, timeline, i+1, save_path))
-        threads.append(t)
-        t.start()
+    # story_timeline_args = story_timeline.get('choices', [{}])[0].get('message', {}).get('function_call', {}).get('arguments')
 
-    for t in threads:
-        t.join()
+    # timeline = parse_timeline(fix_trailing_commas(story_timeline_args))
+
+    # save_timeline(timeline, save_path)
+
+    # threads = []
+    # for i in range(4):
+    #     t = threading.Thread(target=write_suspect_account, args=(plot, suspects, timeline, i+1, save_path))
+    #     threads.append(t)
+    #     t.start()
+
+    # for t in threads:
+    #     t.join()
