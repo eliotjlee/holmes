@@ -18,6 +18,7 @@ from parse_timeline import parse_timeline
 import datetime
 import re
 import json
+from suspect_agents.agent_test import build_and_run_agents
 
 def fix_trailing_commas(json_string):
     json_string = re.sub(",\s*}", "}", json_string)
@@ -30,4 +31,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 # initialize save directory, get path
 save_path = make_save()
 
-initialize_story(save_path)
+plot = initialize_story(save_path)
+
+build_and_run_agents(plot=plot)
