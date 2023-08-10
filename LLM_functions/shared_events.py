@@ -1,7 +1,7 @@
 shared_events_func = [
   {
     "name": "shared_events",
-    "description": "Details shared events, red herrings, and distractions that occur during the timeline. Each timestamp coincides with the main timeline's intervals. VICTIM CANNOT BE IN INTERACTION PAIRS.",
+    "description": "Details shared events and interactions that occur during the timeline. Each timestamp must be in fifteen minute intervals; otherwise response is invalid. VICTIM CANNOT BE IN INTERACTION PAIRS.",
     "parameters": {
       "type": "object",
       "properties": {
@@ -10,7 +10,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -49,7 +49,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -88,7 +88,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -127,7 +127,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -166,7 +166,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -205,7 +205,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -244,7 +244,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -283,7 +283,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -322,7 +322,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",
@@ -361,7 +361,7 @@ shared_events_func = [
           "properties": {
             "time": {
               "type": "string",
-              "description": "This timestamp's time (HH:MM AM/PM)"
+              "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "shared_event": {
               "type": "string",

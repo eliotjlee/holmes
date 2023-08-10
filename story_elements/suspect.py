@@ -22,3 +22,26 @@ class Suspect:
         info += f"Tags: {self.tags}\n"
         info += f"Victim connection: {self.victim_connection}\n"
         return info
+
+
+    def __getstate__(self):
+        # Return the object's state as a dictionary
+        return {
+            'name': self.name,
+            'bio': self.bio,
+            'tags': self.tags,
+            'victim_connection': self.victim_connection,
+            'guilty': self.guilty,
+            'id': self.id,
+            'memory_path': self.memory_path
+        }
+
+    def __setstate__(self, state):
+        # Restore the object's state from the given dictionary
+        self.name = state['name']
+        self.bio = state['bio']
+        self.tags = state['tags']
+        self.victim_connection = state['victim_connection']
+        self.guilty = state['guilty']
+        self.id = state['id']
+        self.memory_path = state['memory_path']

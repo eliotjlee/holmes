@@ -34,3 +34,21 @@ class SharedInteraction:
 
     def get_interaction_id(self):
         return self.interaction_id
+
+    def __getstate__(self):
+        # Return the object's state as a dictionary
+        return {
+            'time': self.time,
+            'suspect_a': self.suspect_a,
+            'suspect_b': self.suspect_b,
+            'interaction_id': self.interaction_id,
+            'interaction_content': self.interaction_content
+        }
+
+    def __setstate__(self, state):
+        # Restore the object's state from the given dictionary
+        self.time = state['time']
+        self.suspect_a = state['suspect_a']
+        self.suspect_b = state['suspect_b']
+        self.interaction_id = state['interaction_id']
+        self.interaction_content = state['interaction_content']

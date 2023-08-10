@@ -21,20 +21,26 @@ class SuspectAgent:
         self.memory_path = self.suspect.memory_path
         self.chat_memory = ConversationBufferMemory(memory_key="chat_history", input_key="human_input")
 
-        embeddings_model = OpenAIEmbeddings()
+        print(f"SUSPECT: {self.suspect.name}")
+        print(f"MEMORY PATH: {self.memory_path}")
+        
+        with open(self.memory_path) as f:
+            memory_stream = f.read()
 
-        raw_docs = TextLoader(self.memory_path).load()
+        embeddings = OpenAIEmbeddings()
 
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size = 1000,
             chunk_overlap  = 200,
             length_function = len,
-            is_separator_regex = False,
         )
 
-        memory_docs = text_splitter.split_documents(raw_docs)
+        texts = text_splitter.split_text(memory_stream)
 
-        self.db = Chroma.from_documents(memory_docs, OpenAIEmbeddings())
+        self.docsearch = Chroma.from_texts(
+            texts, embeddings
+        )
+
 
         template = "You are a suspect in a murder, and you are currently being questioned by the lead investigator.\n\n"
         template += f"Here are the details about the case: \n\n{plot.get_this_suspect_summary(i)}\n\n"
@@ -46,12 +52,14 @@ class SuspectAgent:
         {context}
 
         {chat_history}
-        Human: {human_input}
-        Chatbot:"""
+        Detective: {human_input}
+        You:"""
 
         prompt = PromptTemplate(
             input_variables=["chat_history", "human_input", "context"], template=template
         )
+
+        print(template)
         
         self.chain = load_qa_chain(
             ChatOpenAI(
@@ -65,9 +73,9 @@ class SuspectAgent:
 
 
     def get_suspect_response(self, user_message):
-        doc_search = self.db.similarity_search(user_message, 4)
-        self.chain({"input_documents": doc_search, "human_input": user_message}, return_only_outputs=True)
-        return self.chain.get("output_text")
+        doc_search = self.docsearch.similarity_search(user_message, 4)
+        response = self.chain({"input_documents": doc_search, "human_input": user_message}, return_only_outputs=True)
+        return response.get("output_text")
 
 
 

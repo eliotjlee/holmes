@@ -13,13 +13,13 @@ def choose_function(agents):
         choice = input("Enter function number (1-4): ").strip()
 
         if choice == '1':
-            return agents[0].get_suspect_response()
+            return agents[0].get_suspect_response
         elif choice == '2':
-            return agents[1].get_suspect_response()
+            return agents[1].get_suspect_response
         elif choice == '3':
-            return agents[2].get_suspect_response()
+            return agents[2].get_suspect_response
         elif choice == '4':
-            return agents[3].get_suspect_response()
+            return agents[3].get_suspect_response
         else:
             print("Invalid choice. Please pick a number between 1 and 4.")
 
@@ -41,7 +41,7 @@ def build_and_run_agents(plot):
             print("Goodbye!")
             break
         elif user_input.lower() == 'switch':
-            current_function = choose_function()
+            current_function = choose_function(agents)
             continue
 
         print("\nSUSPECT RESPONSE:\n")

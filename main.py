@@ -19,6 +19,7 @@ import datetime
 import re
 import json
 from suspect_agents.agent_test import build_and_run_agents
+from story_elements.pickle_plot import save_plot
 
 def fix_trailing_commas(json_string):
     json_string = re.sub(",\s*}", "}", json_string)
@@ -32,5 +33,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 save_path = make_save()
 
 plot = initialize_story(save_path)
+
+save_plot(plot, save_path)
 
 build_and_run_agents(plot=plot)

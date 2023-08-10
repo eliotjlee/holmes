@@ -18,6 +18,8 @@ IMPORTANT: YOU MUST NOT INCLUDE ANY EVENTS INVOLVING A DETECTIVE; THE MURDER MUS
 IMPORTANT: ALL TIMESTAMPS MUST BE PRESENT IN YOUR RESPONSE, EVEN IF NO INTERACTION OCCURS AT THAT TIMESTAMP.
 IMPORTANT: Your response must contain AT LEAST 3 interaction pairs.
 
+(ALL TIMES MUST BE IN FORMAT HH:MM AM/PM)
+
 Your answer must include: timestamp_1, timestamp_2, timestamp_3, timestamp_4, timestamp_5, timestamp_6, timestamp_7, timestamp_8, timestamp_9, timestamp_10
 
 YOUR SHARED EVENTS SCHEMA:

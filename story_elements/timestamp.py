@@ -8,3 +8,15 @@ class Timestamp:
 
     def get_suspect_actions(self):
         return self.suspect_actions
+
+    def __getstate__(self):
+        # Return the object's state as a dictionary
+        return {
+            'time': self.time,
+            'suspect_actions': self.suspect_actions
+        }
+
+    def __setstate__(self, state):
+        # Restore the object's state from the given dictionary
+        self.time = state['time']
+        self.suspect_actions = state['suspect_actions']

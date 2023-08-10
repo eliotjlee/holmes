@@ -44,7 +44,7 @@ class Plot:
     
     def get_this_suspect_summary(self, i):
         this_suspect = self.suspects[i]
-        summary = self.get_info
+        summary = self.get_info()
 
         summary += "\nSUSPECTS:"
         other_suspects = "\n\nOTHER SUSPECTS:\n\n"
@@ -56,6 +56,8 @@ class Plot:
                 other_suspects += suspect.get_info_no_guilty()
                 other_suspects += "\n\n"
         summary += other_suspects
+
+        return summary
 
     
     def add_shared_interaction(self, interaction):
@@ -87,3 +89,23 @@ class Plot:
         return self.shared_interactions
                 
   
+
+    def __getstate__(self):
+        # Return the object's state as a dictionary
+        return {
+            'summary': self.summary,
+            'victim': self.victim,
+            'murder_details': self.murder_details,
+            'suspects': self.suspects,
+            'shared_interactions': self.shared_interactions,
+            'timeline': self.timeline
+        }
+
+    def __setstate__(self, state):
+        # Restore the object's state from the given dictionary
+        self.summary = state['summary']
+        self.victim = state['victim']
+        self.murder_details = state['murder_details']
+        self.suspects = state['suspects']
+        self.shared_interactions = state['shared_interactions']
+        self.timeline = state['timeline']

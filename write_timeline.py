@@ -82,7 +82,7 @@ def write_timeline_template(timestamp_number, background_info, shared_events, pr
         timeline_base += f"PREVIOUS TIMESTAMP (Yours must be 15 minutes after this):\n"
         timeline_base += f"{previous_timestamp}\n\n"
 
-    timeline_base += "Fill in all the details, weaving a convincing, continuous narrative, otherwise you die.\n ALL SUSPECTS MUST HAVE AN ACTION AT EACH TIMESTAMP.\n Detail how the murderer plots and carries out their crime; do not write about the investigation. \n\n"
+    timeline_base += "Fill in all the details, weaving a convincing, continuous narrative, otherwise you die.\n ALL SUSPECTS MUST HAVE AN ACTION AT EACH TIMESTAMP.\n Detail how the murderer plots and carries out their crime; do not write about the investigation. \n (ALL TIMES MUST BE IN FORMAT HH:MM AM/PM) \n\n"
 
     timeline_base += f"TIMESTAMP {timestamp_number} OUT OF 10 (YOU MUST RETURN YOUR ANSWER USING write_single_timestamp()):"
     return timeline_base

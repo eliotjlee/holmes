@@ -6,7 +6,7 @@ write_timestamp_func = [{
         "properties": {
             "time": {
                 "type": "string",
-                "description": "This timestamp's time (HH:MM AM/PM)"
+                "description": "This timestamp's time (MUST BE IN FORMAT HH:MM AM/PM)"
             },
             "suspect_1_action": {
                 "type": "string",
