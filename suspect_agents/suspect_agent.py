@@ -95,7 +95,7 @@ class SuspectAgent:
         self.chain = load_qa_chain(
             ChatOpenAI(
                 temperature=0,          
-                model="gpt-3.5-turbo-16k"
+                model="gpt-4"
             ), 
             chain_type="stuff", 
             memory=self.chat_memory, 

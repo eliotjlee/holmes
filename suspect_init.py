@@ -14,7 +14,7 @@ memory = ConversationBufferMemory()
 
 llm = ChatOpenAI(
     temperature=0.45,
-    model="gpt-3.5-turbo-16k-0613",
+    model="gpt-4",
 )
 
 prompt = PromptTemplate.from_template(generate_perspective_template)

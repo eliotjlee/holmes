@@ -19,8 +19,11 @@ import datetime
 import time
 import re
 import json
-from suspect_agents.agent_test import build_and_run_agents
+from suspect_agents.run_game import build_and_run_agents
 from story_elements.pickle_plot import save_plot
+from load_save import get_latest_saves
+from story_elements.pickle_plot import load_plot
+from suspect_agents.run_game import build_and_run_agents
 
 def fix_trailing_commas(json_string):
     json_string = re.sub(",\s*}", "}", json_string)
@@ -31,6 +34,27 @@ def fix_trailing_commas(json_string):
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def main():
+    while True:
+        try:
+            load_or_save = int(input('''
+            Welcome!
+            
+            Would you like to:
+            1. Generate a new game
+            2. Load a save
+            '''))
+            if load_or_save == 1:
+                print("Generating new game...")
+                break
+            elif load_or_save == 2:
+                save_path = get_latest_saves()
+                plot = load_plot(save_path)
+                build_and_run_agents(plot=plot) # Check logic here --> if don't throw error, need a break after?
+            else:
+                raise Exception
+        except Exception as e:
+            print('Invalid input! Please select option 1 or 2')
+
     while True:
         try:
             # initialize save directory, get path

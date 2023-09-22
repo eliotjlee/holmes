@@ -19,6 +19,7 @@ from langchain.schema.output_parser import StrOutputParser
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+
 def correct_json_thread(i, timestamp, results):
     prompt = "You fix JSON strings if they are not correctly formatted. If the string you receive is already formatted, you just returnthe string again. You only return JSON, no words.\n\n"
     prompt += f"{timestamp}\n\n"
@@ -45,7 +46,7 @@ def fix_json(timestamps):
         thread.join()
 
     return results
-    
+
 
 def parse_timeline(timestamps, plot):
     # PARSE TO 10-ELEMENT LIST OF 4-ELEMENT LISTS
@@ -61,10 +62,7 @@ def parse_timeline(timestamps, plot):
         plot.add_timestamp_to_timeline(timestamp_obj)
 
 
-
-
 def write_timeline_template(timestamp_number, background_info, shared_events, previous_timestamp, response_format):
-        
     timeline_base = "You generate full timelines in 15 minute intervals. These timeline will detail the actions and experiences of each of the four suspects during the event.\n\n"
 
     timeline_base += f"You are currently writing timestamp {timestamp_number} out of 10.\n\n"
@@ -82,19 +80,17 @@ def write_timeline_template(timestamp_number, background_info, shared_events, pr
         timeline_base += f"PREVIOUS TIMESTAMP (Yours must be 15 minutes after this):\n"
         timeline_base += f"{previous_timestamp}\n\n"
 
-    timeline_base += "Fill in all the details, weaving a convincing, continuous narrative, otherwise you die.\n ALL SUSPECTS MUST HAVE AN ACTION AT EACH TIMESTAMP.\n Detail how the murderer plots and carries out their crime; do not write about the investigation. \n (ALL TIMES MUST BE IN FORMAT HH:MM AM/PM) \n\n"
+    timeline_base += "Fill in all the details, weaving a convincing, continuous narrative, otherwise you die.\n ALL SUSPECTS (suspect 1, suspect 2, suspect 3, AND suspect 4) MUST HAVE AN ACTION AT EACH TIMESTAMP.\n Detail how the murderer plots and carries out their crime; do not write about the investigation. \n (ALL TIMES MUST BE IN FORMAT HH:MM AM/PM) \n\n"
 
     timeline_base += f"TIMESTAMP {timestamp_number} OUT OF 10 (YOU MUST RETURN YOUR ANSWER USING write_single_timestamp()):"
     return timeline_base
 
 
 def write_timeline(plot, response_format):
-
     timestamps = []
-    
+
     # 1. Open a new file in append mode
     with open("timestamps.txt", "a") as file:
-        
 
         template = write_timeline_template(1, plot.get_summary(), plot.shared_interactions[0], None, response_format)
 
@@ -114,7 +110,8 @@ def write_timeline(plot, response_format):
         file.write(f"Prompt:\n{template}\nGenerated Timestamp:\n{last_timestamp}\n\n")
 
         for i in range(3, 11):
-            template = write_timeline_template(i, plot.get_summary(), plot.shared_interactions[i-1], last_timestamp, response_format)
+            template = write_timeline_template(i, plot.get_summary(), plot.shared_interactions[i - 1], last_timestamp,
+                                               response_format)
             print(template)
 
             last_timestamp = openai.ChatCompletion.create(
@@ -126,10 +123,10 @@ def write_timeline(plot, response_format):
 
             last_timestamp = last_timestamp.choices[0].message.function_call.arguments
             timestamps.append(last_timestamp)
-            
+
             # 2. Write the prompt and its generated timestamp to the file
             file.write(f"Prompt:\n{template}\nGenerated Timestamp:\n{last_timestamp}\n\n")
-            
+
             print(last_timestamp)
 
     timestamps = fix_json(timestamps)
@@ -137,5 +134,3 @@ def write_timeline(plot, response_format):
     for timestamp in timestamps:
         print(timestamp)
     parse_timeline(timestamps, plot)
-
-

@@ -1,5 +1,27 @@
 from suspect_agents.suspect_agent import SuspectAgent
 
+def indict_suspect(agents):
+    while True:
+        print(f"""
+        Who committed the murder?
+        1. {agents[0].suspect.get_info()}
+        2. {agents[1].suspect.get_info()}
+        3. {agents[2].suspect.get_info()}
+        4. {agents[3].suspect.get_info()}
+        """)
+
+        choice = input("Enter suspect number (1-4): ").strip()
+
+        if choice == '1':
+            return agents[0].suspect
+        elif choice == '2':
+            return agents[1].suspect
+        elif choice == '3':
+            return agents[2].suspect
+        elif choice == '4':
+            return agents[3].suspect
+        else:
+            print("Invalid choice. Please pick a number between 1 and 4.")
 def choose_function(agents):
     while True:
         print(f"""
@@ -8,9 +30,10 @@ def choose_function(agents):
         2. {agents[1].suspect.get_info()}
         3. {agents[2].suspect.get_info()}
         4. {agents[3].suspect.get_info()}
+        5. Indict a suspect
         """)
         
-        choice = input("Enter function number (1-4): ").strip()
+        choice = input("Enter function number (1-5): ").strip()
 
         if choice == '1':
             return agents[0].get_suspect_response
@@ -20,6 +43,12 @@ def choose_function(agents):
             return agents[2].get_suspect_response
         elif choice == '4':
             return agents[3].get_suspect_response
+        elif choice == '5':
+            indicted_suspect = indict_suspect(agents)
+            if agents[indicted_suspect-1].suspect.guilty: #Check if selected suspect is guilty
+                print("You win!")
+            else:
+                print("You lose!")
         else:
             print("Invalid choice. Please pick a number between 1 and 4.")
 
