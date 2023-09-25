@@ -25,6 +25,7 @@ from load_save import get_latest_saves
 from story_elements.pickle_plot import load_plot
 from suspect_agents.run_game import build_and_run_agents
 
+
 def fix_trailing_commas(json_string):
     json_string = re.sub(",\s*}", "}", json_string)
     json_string = re.sub(",\s*\]", "]", json_string)
@@ -33,28 +34,8 @@ def fix_trailing_commas(json_string):
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def main():
-    while True:
-        try:
-            load_or_save = int(input('''
-            Welcome!
-            
-            Would you like to:
-            1. Generate a new game
-            2. Load a save
-            '''))
-            if load_or_save == 1:
-                print("Generating new game...")
-                break
-            elif load_or_save == 2:
-                save_path = get_latest_saves()
-                plot = load_plot(save_path)
-                build_and_run_agents(plot=plot) # Check logic here --> if don't throw error, need a break after?
-            else:
-                raise Exception
-        except Exception as e:
-            print('Invalid input! Please select option 1 or 2')
 
+def new_game():
     while True:
         try:
             # initialize save directory, get path
@@ -69,8 +50,36 @@ def main():
             print(f"Error ocurred in story generation: {e}\n\n")
             print("RETRYING...")
             time.sleep(3)
-
+            os.rmdir(save_path)
 
     build_and_run_agents(plot=plot)
+
+
+def load_game():
+    save_path = get_latest_saves()
+    plot = load_plot(save_path)
+    build_and_run_agents(plot=plot)  # Check logic here --> if don't throw error, need a break after?
+
+
+def main():
+    while True:
+        try:
+            load_or_save = int(input('''
+            Welcome!
+            
+            Would you like to:
+            1. Generate a new game
+            2. Load a save
+            '''))
+            if load_or_save != 1 and load_or_save != 2:
+                raise Exception
+            break
+        except Exception as e:
+            print('Invalid input! Please select option 1 or 2')
+    if load_or_save == 1:
+        print("Generating new game...")
+        new_game()
+    elif load_or_save == 2:
+        load_game()
 
 main()

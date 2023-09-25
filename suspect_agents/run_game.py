@@ -1,4 +1,5 @@
 from suspect_agents.suspect_agent import SuspectAgent
+import sys
 
 def indict_suspect(agents):
     while True:
@@ -44,11 +45,12 @@ def choose_function(agents):
         elif choice == '4':
             return agents[3].get_suspect_response
         elif choice == '5':
-            indicted_suspect = indict_suspect(agents)
-            if agents[indicted_suspect-1].suspect.guilty: #Check if selected suspect is guilty
+            indicted_suspect = indict_suspect(agents) # returns player's chosen suspect object
+            if indicted_suspect.guilty: #Check if selected suspect is guilty
                 print("You win!")
             else:
                 print("You lose!")
+            sys.exit(0)
         else:
             print("Invalid choice. Please pick a number between 1 and 4.")
 
