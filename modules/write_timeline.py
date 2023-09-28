@@ -1,17 +1,15 @@
 """
-This module is dedicated to generating and managing the timeline of events in a narrative, particularly a murder mystery narrative. It defines several functions to facilitate the creation, parsing, and correction of timestamp data. The timestamps are crucial in tracking the actions of different characters at specific moments in the story.
+This module is handles the timeline generation for the narrative. It defines several functions to facilitate
+the creation, parsing, and correction of timestamp data. The timestamps are crucial in tracking the actions of different
+characters at specific moments in the story.
 
 Key Functions:
 - correct_json_thread: Corrects JSON string representation of a timestamp in a separate thread.
 - fix_json: Initiates threads to correct JSON strings representing timestamps.
 - parse_timeline: Parses JSON strings into Timestamp objects and updates the plot's timeline.
 - write_timeline_template: Constructs a template for generating a single timestamp in the narrative.
-- write_timeline: Handles the generation of the entire timeline, iterating through timestamps, and ensuring consistency in the narrative flow.
-
-The module employs the OpenAI GPT-3 model to generate and correct timestamp data, threading to parallelize JSON correction, and file operations to persist the generated data.
-
-Usage:
-The primary function to be used externally is `write_timeline`, which orchestrates the timeline generation process, drawing upon the other functions defined in this module.
+- write_timeline: Handles the generation of the entire timeline, iterating through timestamps, and ensuring consistency
+in the narrative flow.
 """
 
 import openai
@@ -34,7 +32,7 @@ def correct_json_thread(i, timestamp, results):
         results (list): The list to store the corrected JSON string.
     """
     prompt = ("You fix JSON strings if they are not correctly formatted. If the string you receive is already "
-              "formatted, you just returnthe string again. You only return JSON, no words.\n\n")
+              "formatted, you just return the string again. You only return JSON, no words.\n\n")
     prompt += f"{timestamp}\n\n"
 
     corrected_timestamp = openai.ChatCompletion.create(

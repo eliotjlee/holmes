@@ -9,7 +9,6 @@ Here's a brief description of what each file does:
 - make_save.py: Handles creation of save files for story data.
 - parse_shared_events.py: Parses shared events in the story timeline.
 - parse_story.py: Parses the overall story structure.
-- parse_timeline.py: Parses timeline events in the story.
 - shared_convo_gen.py: Generates shared conversations between characters.
 - story_init.py: Initializes the story structure.
 - suspect_init.py: Initializes suspect information.
