@@ -3,7 +3,17 @@ from story_elements.shared_interaction import SharedInteraction
 
 def parse_shared_interactions(json_data, plot):
     """
-    Parses shared interactions, stores within plot object.
+    Parses the shared interactions from the given JSON data and stores them within the provided plot object.
+
+    Parameters:
+        json_data (dict): A dictionary containing the shared interactions data.
+        plot (Plot): The Plot object where the shared interactions will be stored.
+
+    Returns:
+        None
+
+    Raises:
+        KeyError: If the required keys are not found in the JSON data.
     """
 
     # Iterates through shared interactions, parses + stores them

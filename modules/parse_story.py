@@ -6,7 +6,15 @@ from story_elements.suspect import Suspect
 
 def parse_story(story_dict):
     """
-    Takes + deconstructs schema, produces passable Plot object.
+    Parses the given story schema dictionary and constructs a Plot object along with a list of Suspect objects.
+
+    Parameters:
+        story_dict (dict): A dictionary containing the story schema including plot, victim, murder details, and suspects.
+
+    Returns:
+        tuple: A tuple containing:
+            - plot_obj (Plot): A Plot object containing the story's plot, victim, murder details, and suspects.
+            - suspects (list): A list of Suspect objects representing the suspects in the story.
     """
 
     # Extracts plot, victim, murder details
