@@ -1,85 +1,126 @@
+"""
+This module is the entry point of the game. It includes functions to create a new game, load a saved game,
+and run the game. It also handles the initial interaction with the user to decide whether to start a new
+game or load a saved one.
+
+Functions:
+    new_game() -> object:
+        Creates a new game, including the story, suspects, and their accounts, and returns the Plot object.
+
+    load_game() -> object:
+        Loads a game from a saved directory by deserializing the Plot object from a pickle file.
+
+    main() -> None:
+        The main function to run the game. It interacts with the user to decide whether to start a new game
+        or load a saved one, and then builds and runs the suspect agents to commence the game.
+
+Execution:
+    If this script is run as the main module, it calls the main() function to start the game.
+"""
+
+
 import openai
 import os
-from LLM_functions.set_up_story import set_up_story_func
-from LLM_functions.write_timeline import write_timeline_func
-from old.write_accounts import create_suspect_prompt, create_suspect_prompt_dict, generate_suspect_prompt
-from suspect_init import write_suspect_account
-from make_save import make_save
-from story_init import initialize_story
-import json
-import re
-import pprint
-from parse_story import parse_story
-from story_elements.victim import Victim
-from story_elements.murder_details import MurderDetails
-from story_elements.plot import Plot
-from story_elements.suspect import Suspect
-from parse_timeline import parse_timeline
-import datetime
 import time
-import re
-import json
-from suspect_agents.run_game import build_and_run_agents
-from story_elements.pickle_plot import save_plot
-from load_save import get_latest_saves
-from story_elements.pickle_plot import load_plot
-from suspect_agents.run_game import build_and_run_agents
+import traceback
+from modules.make_save import make_save  # Import function to create a save directory and return its path
+from modules.story_init import initialize_story  # Import function to initialize a story
+from story_elements.pickle_plot import save_plot, load_plot  # Import functions to save and load the plot
+from modules.load_save import get_latest_saves  # Import function to get the path of the latest saves
+from suspect_agents.run_game import build_and_run_agents  # Import function to build and run agents in the game
 
-
-def fix_trailing_commas(json_string):
-    json_string = re.sub(",\s*}", "}", json_string)
-    json_string = re.sub(",\s*\]", "]", json_string)
-    return json.loads(json_string)
-
-
+# Set the OpenAI API key from environment variables
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+if openai.api_key is None:
+    print("Error: OPENAI_API_KEY environment variable is not set.")
+    exit(1)
 
 
 def new_game():
-    while True:
+    """
+    Generates a new game, including the story, suspects, and their accounts.
+    It tries to initialize a new story, and if an error occurs, it retries up to three times.
+
+    Returns:
+        plot (object): The Plot object containing the story, suspects, and their accounts.
+    """
+    retries = 0
+    max_retries = 3
+    while retries < max_retries:
+        save_path = None
         try:
-            # initialize save directory, get path
             save_path = make_save()
-
-            plot = initialize_story(save_path)
-
+            plot = initialize_story(save_path) # Dynamically create a story, including plot, suspects, etc.
             save_plot(plot, save_path)
-
-            break
+            return plot
         except Exception as e:
-            print(f"Error ocurred in story generation: {e}\n\n")
-            print("RETRYING...")
-            time.sleep(3)
-            os.rmdir(save_path)
-
-    build_and_run_agents(plot=plot)
+            # Inevitably, sometimes the story generation will error; LLM-outputted text is not always 100% valid.
+            retries += 1
+            print(f"Error occurred in story generation: {e}")
+            traceback.print_exc()  # Print traceback to understand the error
+            if retries < max_retries:
+                print("RETRYING...")
+                time.sleep(3)
+                if save_path is not None:
+                    os.rmdir(save_path)
+            else:
+                print("Max retries reached. Exiting...")
+                break
 
 
 def load_game():
-    save_path = get_latest_saves()
-    plot = load_plot(save_path)
-    build_and_run_agents(plot=plot)  # Check logic here --> if don't throw error, need a break after?
+    """
+    Loads a game from a saved directory by deserializing the Plot object from a pickle file.
+
+    Returns:
+        plot (object): The Plot object containing the story, suspects, and their accounts.
+    """
+    try:
+        save_path = get_latest_saves()
+        plot = load_plot(save_path)
+        return plot
+    except Exception as e:
+        print(f"Error occurred while loading the game: {e}")
+        traceback.print_exc()
 
 
 def main():
+    """
+    The main function to run the game. It first interacts with the user to decide whether to
+    start a new game or load a saved one. Then, it generates or loads a Plot object accordingly.
+    Finally, it builds and runs the suspect agents to commence the game.
+
+    Returns:
+        None
+    """
     while True:
         try:
             load_or_save = int(input('''
             Welcome!
-            
+
             Would you like to:
             1. Generate a new game
             2. Load a save
             '''))
-            if load_or_save != 1 and load_or_save != 2:
-                raise Exception
-            break
-        except Exception as e:
-            print('Invalid input! Please select option 1 or 2')
+            if not (1 <= load_or_save <= 2):
+                print('Invalid input! Please select option 1 or 2')
+            else:
+                break
+        except ValueError:
+            print('Invalid input! Please enter a number (1 or 2)')
+
+    # Generate or load a Plot object
+    plot = None
     if load_or_save == 1:
         print("Generating new game...")
-        new_game()
+        plot = new_game()
     elif load_or_save == 2:
-        load_game()
+        plot = load_game()
 
-main()
+    # Uses the Plot object to build and run the suspect agents, commences the game
+    build_and_run_agents(plot=plot)
+
+
+if __name__ == "__main__":
+    main()

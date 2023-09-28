@@ -1,4 +1,14 @@
-def assemble_suspect_context(plot, suspect_number): #suspect number one less than id
+def assemble_suspect_context(plot, suspect_number):
+    """
+    Assembles a string containing the context for a suspect's account based on the provided plot and suspect number.
+
+    Parameters:
+        plot (Plot): The plot object containing details of the case.
+        suspect_number (int): The index of the suspect in the plot's suspect list.
+
+    Returns:
+        str: A string containing the contextual information for the suspect's account.
+    """
     context_str = f"Case Summary: {plot.summary}\n"
     context_str += f"Victim: {plot.victim.name}\nBio: {plot.victim.bio}\n"
     context_str += f"Murder Details: {plot.murder_details.murder_description}\n"
@@ -29,5 +39,5 @@ def assemble_suspect_context(plot, suspect_number): #suspect number one less tha
 
     context_str += "\nHere are the other suspects:\n"
     context_str += other_suspects
-    
+
     return context_str

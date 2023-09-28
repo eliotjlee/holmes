@@ -1,12 +1,12 @@
-import json
 from story_elements.timestamp import Timestamp
 from story_elements.timeline import Timeline
+
 
 def parse_timeline(timeline_dict):
     valid_output = True
     start_time = timeline_dict.get("start_time")
     time_of_murder = timeline_dict.get("time_of_murder")
-    
+
     timestamps = []
     for i in range(1, 11):
         timestamp = timeline_dict.get(f"timestamp_{i}")
@@ -24,5 +24,5 @@ def parse_timeline(timeline_dict):
             if not action.isalpha():
                 valid_output = False
                 break
-    
+
     return Timeline(start_time, time_of_murder, timestamps), valid_output
