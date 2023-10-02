@@ -14,5 +14,5 @@ Here's a brief description of what each file does:
 - suspect_init.py: Initializes suspect information.
 - write_timeline.py: Writes timeline events into a structured format.
 
-Each file contains further detailed documentation regarding the specific functions and classes it contains.
+Each file contains further detailed documentation regarding the specific functions it contains.
 """
