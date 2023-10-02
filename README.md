@@ -46,8 +46,8 @@ Holmes challenges players to solve a murder mystery by interrogating a set of su
   
 - **Windows**:
   ```bash
-    setx OPENAI_API_KEY=your_api_key_here
-    ```
+  setx OPENAI_API_KEY=your_api_key_here
+  ```
 
 ## Future Plans
 
