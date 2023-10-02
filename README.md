@@ -79,3 +79,7 @@ Holmes challenges players to solve a murder mystery by interrogating a set of su
 ## Author
 
 Eliot Lee - Sophomore at Northwestern University studying Computer Science and English.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
