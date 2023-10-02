@@ -35,6 +35,11 @@ Holmes challenges players to solve a murder mystery by interrogating a set of su
 - **Data Storage**: A hierarchy of objects (`Timestamp`, `SuspectAgent`, etc.) was devised to hold the generated text. The `Plot` object encapsulates all game information, allowing easy data serialization.
 - **Flexibility**: Currently, Holmes uses OpenAI’s `gpt-3.5-turbo-16k` for its LLM. However, by replacing OpenAI calls with Langchain chains/agents, almost any LLM could be integrated into the game.
 
+## Future Plans
+
+- **Integrate Multiple LLMs**: Plan to support different LLMs by replacing OpenAI calls with Langchain chains/agents.
+- **Enhance Game Mechanics**: Look forward to deepening the game mechanics for a richer player experience.
+
 ## Setup and Configuration
 
 **Important**: This code assumes that you have set your OpenAI API key as the environment variable named `OPENAI_API_KEY`. If you haven't set this up yet, please ensure you do so before running the application. Depending on your operating system:
@@ -49,10 +54,27 @@ Holmes challenges players to solve a murder mystery by interrogating a set of su
   setx OPENAI_API_KEY=your_api_key_here
   ```
 
-## Future Plans
+## Installation
 
-- **Integrate Multiple LLMs**: Plan to support different LLMs by replacing OpenAI calls with Langchain chains/agents.
-- **Enhance Game Mechanics**: Look forward to deepening the game mechanics for a richer player experience.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/eliotjlee/holmes
+    ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd holmes
+   ```
+
+3. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run the application:
+   ```bash
+   python main.py
+   ```
 
 ## Author
 
