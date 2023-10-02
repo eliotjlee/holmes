@@ -145,7 +145,7 @@ def initialize_story(save_path: str):
     # Saving schema to disk
     save_schema(plot, save_path)
 
-    # Generating shared events for the story
+    # Designating timestamps at which shared interactions occur
     story_shared_events = openai.ChatCompletion.create(
         model='gpt-3.5-turbo-16k-0613',
         messages=[{'role': 'system', 'content': shared_events_template.format(story_schema=story_schema)}],
