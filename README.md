@@ -1,4 +1,4 @@
-# Holmes: A Text-Based Crime Investigation Game Powered by an LLM
+# Holmes: An LLM-Powered Text-Based Crime Investigation Game
 
 Holmes is an interactive, text-based crime investigation game powered by a large language model (LLM). With each replay, the game offers a fresh narrative, ensuring a unique experience for players every time.
 
