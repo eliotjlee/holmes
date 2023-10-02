@@ -42,4 +42,4 @@ Holmes challenges players to solve a murder mystery by interrogating a set of su
 
 ## Author
 
-[Your Name] - Sophomore at [Your College Name]. Seeking internship opportunities.
+[Eliot Lee] - Sophomore at [Northwestern University] studying Computer Science and English. Seeking internship opportunities.
